@@ -58,12 +58,6 @@ Use this resource like `/clients/PERMALINK/pool.json`
       <td>"1994-11-05T13:15:30Z"</td>
       <td>DateTime (ISO8601 with Timezone)</td>
     </tr>
-    <tr>
-      <th align="left">content_updated_at</th>
-      <td>string</td>
-      <td>"1994-11-05T13:15:30Z"</td>
-      <td>DateTime (ISO8601 with Timezone)</td>
-    </tr>
   </table>
 </table>
 
