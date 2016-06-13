@@ -7,7 +7,7 @@ POST https://api.betterplace.org/de/api_v4/clients/volksfreund/projects/1114/don
 
 Submit a donation pledge into the system. This will be transformed into
 a donation to the receiver. The request has to be a POST request with a
-JSON body.
+JSON body. There is [a flow chart that describes this process in full](http://ixwphj.axshare.com/donation-pledge-flow.html).
 
 
 **:lock: Only available if authenticated as a client.**
@@ -36,12 +36,34 @@ projects they choose.
 
 **Reconciliation of donation pledges**
 
-The process of reconciliation for donation pledges has yet to be documented.
-Please contact product-at-betterplace.org for details.
+Part of the contract for the usage of this donation pledge api will
+be the time period in which the pledges need to be reconsiled. Ususally
+every two weeks or once a month. At the end of this time, the client
+will sum all pledges in the client system, wire us the donations and
+also send us a csv file which allows betterplace.org to check the amounts.
+
+Required fields for the csv files are:
+- receiver_type
+- receiver_id
+- amount_in_cents
+- first_name
+- last_name
+- client_reference
+- datetime (ISO8601 with Timezone)
+
+Please use those names as column titles.
+
+There is [a flow chart that describes the process](http://ixwphj.axshare.com/money-transfer-flow.html).
 
 
 **Response and error codes:**
 
+[A list of all response and error codes](../README.md#http-status-codes).
+
+The most likely once are:
+
+[HTTP Code `202`](http://httpstatus.es/202)
+if a resource was successfully submitted for delayed processing.
 A successful request will return HTTP status 202 (accepted). The
 donation pledge is now saved and queued and will be processed
 by background workers. This part takes place asynchronously and might
@@ -51,8 +73,19 @@ receive a 202 response from us. Note that we will book only one
 donation per <code>client_reference</code> so there is no need to
 worry about retrying the pledge-sending.
 
-If an error occurs the HTTP return code will be 422 (unprocessable
-entity). [More error codes](../README.md#http-status-codes).
+[HTTP Code `422`](http://httpstatus.es/422)
+if the submitted resource could not be accepted due to erroneous parameters.
+Please remember to validate all user input on your side before submitting
+it to the API.
+
+[HTTP Code `404`](http://httpstatus.es/404)
+if a requested resource could not be found. This might happen, if
+the resource was deleted in the timeframe between selection by the user
+and confirmation of the pledge by the client. In this case, either
+contact your user and change the resource (most likely a project)
+or redirect the donation to the client pool (the url is provided by
+betterplace.org).
+
 
 
 ## URL Parameters

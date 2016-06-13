@@ -6,6 +6,7 @@ POST https://api.betterplace.org/de/api_v4/clients/volksfreund/projects/4425/mai
 ```
 
 Create or update a mailing subscriptions for a project.
+[There is flow chart that describes this process](http://ixwphj.axshare.com/user-subscriptions-flow.html).
 
 **:lock: Only available if authenticated as a client.**
 See [betterplace.org clients](../README.md#client-api).
