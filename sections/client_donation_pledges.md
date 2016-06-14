@@ -70,7 +70,7 @@ by background workers. This part takes place asynchronously and might
 take up to a few minutes, especially in high traffic scenarios.
 Please make sure that you queue and retry your API calls until you
 receive a 202 response from us. Note that we will book only one
-donation per <code>client_reference</code> so there is no need to
+donation per <code>client_reference</code> so there's no need to
 worry about retrying the pledge-sending.
 
 [HTTP Code `422`](http://httpstatus.es/422)
